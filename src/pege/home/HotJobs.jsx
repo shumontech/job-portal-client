@@ -1,34 +1,37 @@
 import { div } from 'motion/react-client';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 const HotJobs = ({ jobsPromise }) => {
 
     // const Jobs= use(jobsPromise);
-    console.log(jobsPromise)
+   
     const [jobs, setJobs] = useState([]);
+    
 
-    const { title, location, jobtype, category, despription, company, company_logo } = jobs;
+    // const { title, location, jobType, _id, category, despription, company, company_logo } = jobs;
 
     useEffect(() => {
 
         async function fetchJobs() {
             const response = await jobsPromise;
-            console.log('Jobs Promise Changed:', jobsPromise);
+            console.log('Jobs Promise Changed:', response);
             setJobs(response);
+
         }
         fetchJobs()
 
 
     }, [jobsPromise])
-
+console.log('tsrdghjk', jobs);
 
     return (
         <div>
             <div className=" rounded-3xl shadow-amber-200 bg-gradient-to-r from-indigo-200 via-green-600 to-pink-600 py-16">
-  <h1 className="text-5xl font-extrabold text-center text-white tracking-wide drop-shadow-lg">
-    🔥 HOT JOB OF THE DAY
-  </h1>
-</div>
+                <h1 className="text-5xl font-extrabold text-center text-white tracking-wide drop-shadow-lg">
+                    🔥 HOT JOB OF THE DAY
+                </h1>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
 
                 {jobs.map((job, index) => (
@@ -78,11 +81,14 @@ const HotJobs = ({ jobsPromise }) => {
                             </div>
 
                             {/* Button */}
-                            <div className="mt-5">
+                            <Link to={`/jobs/${job._id}`}> <div className="mt-5">
                                 <button className="btn btn-sm btn-primary rounded-full px-6">
                                     Apply Now
+                                    
                                 </button>
                             </div>
+                            </Link>
+                           
                         </div>
                     </div>
                 ))}
